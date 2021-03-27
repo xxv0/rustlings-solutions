@@ -11,7 +11,6 @@ struct Color {
     blue: u8,
 }
 
-// I AM NOT DONE
 
 // Your task is to complete this implementation
 // and return an Ok result of inner type Color.
@@ -25,19 +24,34 @@ struct Color {
 // Tuple implementation
 impl TryFrom<(i16, i16, i16)> for Color {
     type Error = String;
-    fn try_from(tuple: (i16, i16, i16)) -> Result<Self, Self::Error> {}
+    fn try_from(tuple: (i16, i16, i16)) -> Result<Self, Self::Error> {
+        match tuple {
+            (red, green, blue) if 0 <= red && red < 256 && 0 <= green && green < 256 && 0 <= blue && blue < 256  =>  Ok(Color {red: red as u8, green: green as u8, blue: blue as u8}),
+            _ => Err(String::from("can't convert")),
+        }
+    }
 }
 
 // Array implementation
 impl TryFrom<[i16; 3]> for Color {
     type Error = String;
-    fn try_from(arr: [i16; 3]) -> Result<Self, Self::Error> {}
+    fn try_from(arr: [i16; 3]) -> Result<Self, Self::Error> {
+        match arr {
+            [red, green, blue] if 0 <= red && red < 256 && 0 <= green && green < 256 && 0 <= blue && blue < 256  =>  Ok(Color {red: red as u8, green: green as u8, blue: blue as u8}),
+            _ => Err(String::from("can't convert")),
+        }
+    }
 }
 
 // Slice implementation
 impl TryFrom<&[i16]> for Color {
     type Error = String;
-    fn try_from(slice: &[i16]) -> Result<Self, Self::Error> {}
+    fn try_from(slice: &[i16]) -> Result<Self, Self::Error> {
+        match slice {
+            [red, green, blue] if 0 <= *red && *red < 256 && 0 <= *green && *green < 256 && 0 <= *blue && *blue < 256  =>  Ok(Color {red: *red as u8, green: *green as u8, blue: *blue as u8}),
+            _ => Err(String::from("can't convert")),
+        }
+    }
 }
 
 fn main() {
